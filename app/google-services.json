@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "518075706155",
+    "firebase_url": "https://appifba.firebaseio.com",
+    "project_id": "appifba",
+    "storage_bucket": "appifba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518075706155:android:d35eec571023303666336e",
+        "android_client_info": {
+          "package_name": "com.example.appifba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518075706155-10og5g9sg0eqrlhua9t3dd0g0f8jc9st.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfXMmpqXg0m-lH2YlOLQWLKFxOKfkRZkI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518075706155-10og5g9sg0eqrlhua9t3dd0g0f8jc9st.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
