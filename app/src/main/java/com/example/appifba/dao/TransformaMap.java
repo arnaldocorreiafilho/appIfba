@@ -10,7 +10,7 @@ public class TransformaMap {
     public static Map<String,Object> Transforma(Denuncia denuncia)
     {
         Map<String, Object> denuncias = new HashMap<>();
-        denuncias.put("id",denuncia.getId());
+
         denuncias.put("descricao",denuncia.getDescricao());
         return  denuncias;
     }

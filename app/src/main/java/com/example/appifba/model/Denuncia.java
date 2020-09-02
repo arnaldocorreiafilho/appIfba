@@ -2,11 +2,11 @@ package com.example.appifba.model;
 
 public class Denuncia {
 
-    private Long id;
+
     private  String descricao;
 
-    public Denuncia(Long id, String descricao) {
-        this.setId(id);
+    public Denuncia(String descricao) {
+
         this.setDescricao(descricao);
     }
 
@@ -14,13 +14,7 @@ public class Denuncia {
 
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDescricao() {
         return descricao;
