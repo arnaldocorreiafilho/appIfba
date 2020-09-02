@@ -31,9 +31,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Denuncia d = new Denuncia();
+                d.setUid("-MGExaSMJA6ZBZm3CU0x");
                 d.setDescricao(text.getText().toString());
-                dao.salvar(d);
-                System.out.println(dao.listaTodos().size());
+               // dao.salvar(d);
+                dao.atualizar(d);
 
             }
         });

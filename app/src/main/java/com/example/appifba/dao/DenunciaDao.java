@@ -35,12 +35,31 @@ public class DenunciaDao implements IDenunciaDao {
 
     @Override
     public void atualizar(Denuncia denuncia) {
+        ref.child(denuncia.getUid()).child("descricao").setValue(denuncia.getDescricao());
 
     }
 
     @Override
-    public Denuncia localizaPorId(Long id) {
-        return  null;
+    public Map<String,Denuncia> localizaPorId(final String id) {
+
+        final Map<String,String> messages = new HashMap<>();
+        ref.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messages.putAll((HashMap<String,String>)snapshot.getValue());
+                Denuncia d = new Denuncia();
+                d.setUid(id);
+                d.setDescricao(messages.get("descricao"));
+                System.out.println(d);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        return null;
     }
     private void Teste(List<Denuncia> denuncias)
     {
@@ -57,7 +76,7 @@ public class DenunciaDao implements IDenunciaDao {
                GenericTypeIndicator<Map<String,Denuncia>> t = new GenericTypeIndicator<Map<String, Denuncia>>() {
                };
                messages.putAll(snapshot.getValue(t));
-               System.out.println(messages.size()+"teste");
+               System.out.println(messages.keySet()+"teste");
            }
 
            @Override
@@ -66,6 +85,22 @@ public class DenunciaDao implements IDenunciaDao {
            }
        });
        return messages;
+    }
+
+    @Override
+    public void apagarporId(final String id) {
+        ref.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                snapshot.getRef().removeValue();
+                System.out.println("sucesso apagado");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
