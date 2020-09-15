@@ -24,7 +24,7 @@ public class DenunciaDao implements IDenunciaDao {
     public DenunciaDao() {
         c = new Conexao();
         db  = (FirebaseDatabase) c.getConexao();
-        ref = db.getReference().child("denuncias");
+        ref = db.getReference().child("estagio-2d084");
     }
 
     @Override
@@ -48,9 +48,8 @@ public class DenunciaDao implements IDenunciaDao {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messages.putAll((HashMap<String,String>)snapshot.getValue());
                 Denuncia d = new Denuncia();
-                d.setUid(id);
-                d.setDescricao(messages.get("descricao"));
-                System.out.println(d);
+
+                System.out.println(messages.keySet());
             }
 
             @Override
@@ -69,7 +68,7 @@ public class DenunciaDao implements IDenunciaDao {
     @Override
     public Map<String,Denuncia> listaTodos() {
         final Map<String,Denuncia> messages = new HashMap<>();
-       Query query =  db.getReference("denuncias").limitToLast(50);
+       Query query =  db.getReference("estagio-2d084").limitToLast(50);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     //d.setUid("-MGExaSMJA6ZBZm3CU0x");
                     d.setDescricao(text.getText().toString());
                     dao.salvar(d);
+                    dao.listaTodos();
                 }
                 else {
 
