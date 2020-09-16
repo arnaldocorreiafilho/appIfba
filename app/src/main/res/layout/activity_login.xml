@@ -65,6 +65,7 @@
             android:layout_gravity="right"
             android:textSize="15dp"
             android:layout_marginRight="35dp"/>
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnlogin"
             android:layout_width="300dp"
