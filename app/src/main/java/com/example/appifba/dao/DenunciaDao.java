@@ -24,13 +24,15 @@ public class DenunciaDao implements IDenunciaDao {
     public DenunciaDao() {
         c = new Conexao();
         db  = (FirebaseDatabase) c.getConexao();
-        ref = db.getReference().child("estagio-2d084");
+       // ref = db.getReference().child("denuncias").push();
     }
 
     @Override
     public void salvar(Denuncia denuncia) {
-
-        ref.push().setValue(denuncia);
+        ref = db.getReference().child("denuncias").push();
+        denuncia.setUid(ref.getKey());
+        Map<String,Object> dado = TransformaMap.Transforma(denuncia);
+        ref.setValue(dado);
     }
 
     @Override
@@ -68,7 +70,7 @@ public class DenunciaDao implements IDenunciaDao {
     @Override
     public Map<String,Denuncia> listaTodos() {
         final Map<String,Denuncia> messages = new HashMap<>();
-       Query query =  db.getReference("estagio-2d084").limitToLast(50);
+       Query query =  db.getReference("denuncias").limitToLast(50);
        query.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {

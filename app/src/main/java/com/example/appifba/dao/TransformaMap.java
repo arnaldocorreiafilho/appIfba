@@ -11,6 +11,7 @@ public class TransformaMap {
     {
         Map<String, Object> denuncias = new HashMap<>();
 
+        denuncias.put("uid",denuncia.getUid());
         denuncias.put("descricao",denuncia.getDescricao());
         return  denuncias;
     }

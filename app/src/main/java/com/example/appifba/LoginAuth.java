@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,14 +18,31 @@ import java.util.List;
 
 public class LoginAuth extends AppCompatActivity {
 
-    private static final int MY_REQUEST_CODE = 123;
+    private static final int MY_REQUEST_CODE = 1;
     List<AuthUI.IdpConfig> providers;
+
+
+
+    private void updateUI(FirebaseUser user) {
+        if(user.isAnonymous())
+        {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+        else {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_auth);
-        providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),new  AuthUI.IdpConfig.AnonymousBuilder().build());
+        providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.AnonymousBuilder().build()
+        );
         showSignInOptions();
 
 
@@ -40,25 +58,36 @@ public class LoginAuth extends AppCompatActivity {
         );
     }
 
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MY_REQUEST_CODE) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if(user.isAnonymous()) {
-                    startActivity(new Intent(this, MainActivity.class));
-                    finish();
-                }
-                else {
-                    startActivity(new Intent(this, LoginActivity.class));
-                    finish();
-                }
-                Toast.makeText(this, "Welcome! " + user.getDisplayName(), Toast.LENGTH_LONG).show();
+                FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+                    @Override
+                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                        FirebaseUser user =  firebaseAuth.getInstance().getCurrentUser();
+                        if(user != null) {
+                            String email = user.getEmail();
+                            if (email != null) {
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                finish();
+                            } else {
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
+                        }
+                    }
+                });
+
+                //Toast.makeText(this, "Welcome! " + user.isAnonymous(), Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "" + response.getError().getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
 }
+
+
+
+

@@ -15,9 +15,10 @@ public class Denuncia {
     }
 
 
-    public Denuncia(String descricao) {
+    public Denuncia(String uid,String descricao) {
 
         this.setDescricao(descricao);
+        this.setUid(uid);
     }
 
     public Denuncia() {
