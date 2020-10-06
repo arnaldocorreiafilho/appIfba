@@ -1,5 +1,6 @@
 package com.example.appifba;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appifba.adapter.Adapter;
+import com.example.appifba.adapter.DenunciaViewHolder;
 import com.example.appifba.model.Denuncia;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.FirebaseDatabase;
@@ -27,6 +29,14 @@ public class LoginActivity extends AppCompatActivity {
                         .build();
         Adapter adapter = new Adapter(options);
         adapter.startListening();
+        adapter.setIclick(new DenunciaViewHolder.Iclick() {
+            @Override
+            public void click(Denuncia denuncia) {
+              Intent intent = DetailsActivity.getStartIntent(getApplicationContext(),denuncia.getUid(),denuncia.getDescricao());
+              startActivity(intent);
+              finish();
+            }
+        });
         RecyclerView.LayoutManager lm = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
         recyclerView.setLayoutManager(lm);
         recyclerView.setHasFixedSize(true);

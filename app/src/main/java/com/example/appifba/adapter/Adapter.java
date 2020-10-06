@@ -13,6 +13,11 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 
 public class Adapter extends FirebaseRecyclerAdapter<Denuncia, DenunciaViewHolder> {
 
+    private DenunciaViewHolder.Iclick iclick;
+    public void setIclick(DenunciaViewHolder.Iclick iclick) {
+        this.iclick = iclick;
+    }
+
 
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -26,7 +31,7 @@ public class Adapter extends FirebaseRecyclerAdapter<Denuncia, DenunciaViewHolde
 
     @Override
     protected void onBindViewHolder(@NonNull DenunciaViewHolder holder, int position, @NonNull Denuncia model) {
-        holder.setDenucia(model.getDescricao());
+        holder.setDenucia(model);
 
     }
 
@@ -35,7 +40,9 @@ public class Adapter extends FirebaseRecyclerAdapter<Denuncia, DenunciaViewHolde
     public DenunciaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_recicler, parent, false);
-        return new DenunciaViewHolder(view);
+        DenunciaViewHolder d =  new DenunciaViewHolder(view);
+        d.setIclick(this.iclick);
+        return d;
     }
 
 
