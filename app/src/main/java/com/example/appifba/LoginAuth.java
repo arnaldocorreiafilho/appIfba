@@ -40,7 +40,7 @@ public class LoginAuth extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_auth);
         providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.EmailBuilder().setAllowNewAccounts(false).build(),
                 new AuthUI.IdpConfig.AnonymousBuilder().build()
         );
         showSignInOptions();
