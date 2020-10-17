@@ -42,6 +42,7 @@ public class LoginAuth extends AppCompatActivity {
         providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().setAllowNewAccounts(false).build(),
                 new AuthUI.IdpConfig.AnonymousBuilder().build()
+
         );
         showSignInOptions();
 
